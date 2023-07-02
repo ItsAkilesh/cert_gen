@@ -1,0 +1,204 @@
+{% extends "base.html" %}       
+{% block head %}
+  <title>SIGNUP</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .container1 {
+      display: flex;
+      flex-direction: column; 
+      justify-content: space-between; 
+      min-height: 60vh;
+      font-family: Arial, sans-serif;
+      background-color: rgb(36,41,51);
+      width: 500px;
+      margin: 60px auto;
+      padding: 40px;
+      background: radial-gradient(circle, rgba(23, 23, 23, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
+    }
+    .container1:before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc);
+      z-index: -1;
+      filter: blur(20px);
+    }
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #fff;
+      text-align: left;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .form-group input:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: glowing-border 1.5s infinite;
+}
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #1effe9;
+      border-width: 5px;
+    }
+    .form-group a {
+      display: block;
+      width: 420px;
+      padding: 12px;
+      text-decoration: none;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+
+.form-group a:hover {
+  background-color: #007fff;
+  transform: translateY(5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: glowing-border 1.5s infinite;
+}
+
+@keyframes glowing-border {
+  0% {
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(30, 144, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+  }
+}
+.link {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease, font-size 0.3s ease;
+  }
+
+  .link:hover {
+    color: aqua;
+    font-size: 1.2em;
+    animation: bounce 0.3s;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  
+  .form-group button {
+    display: block;
+    width: 420px;
+    padding: 12px;
+    background-color: rgb(5, 170, 170);; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+
+  .form-group button:hover {
+    background-color: #007fff;
+    transform: translateY(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(30, 144, 255, 0.6); 
+  }
+
+  
+  </style>
+            {% endblock %}
+
+{% block content %}
+  
+<div class="container1 md:w-[500] w-full" style="position: relative;">
+    <h2>SIGNUP</h2>
+    {% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="text-white bg-red-500">
+        {{ messages[0] }}. Go to <a class="text-blue-600" href="{{ url_for('auth.login') }}">login page</a>.
+    </div>
+{% endif %}
+{% endwith %}
+    <form action="/signup" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="register_number">Register Number:</label>
+        <input type="text" id="register_number" name="register_number" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">Sign Up</button>
+      </div>
+      <a href="/login" class="link">Already a member? Login</a>
+    </form>
+  </div>
+
+  <div flex flex-col h-screen justify-between>
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content h-10 text-slate-100 font-medium">
+      <div>
+        <p>Copyright &copy; 2023 - All right reserved by Microsoft Innovations Club VIT Chennai</p>
+      </div>
+    </footer>
+  </div>
+  {% endblock %}

@@ -1,0 +1,194 @@
+{% extends "dash.html"%} {% block content%}
+<body class="bg-gray-800 text-white min-h-screen">
+  <div class="container mx-auto px-2 py-4">
+    <h2 class="text-center text-3xl font-semibold mb-6">CREATE NEW EVENT</h2>
+    <form action="/create_event" method="POST" enctype="multipart/form-data" id="create_event_form">
+      <div class="mb-6">
+        <label for="event_name" class="block font-semibold mb-2">Event Name:</label>
+        <input
+          type="text"
+          id="event_name"
+          name="event_name"
+          required
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 bg-black text-white"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="brandings" class="block font-semibold mb-2">Brandings:</label>
+        <input
+          type="text"
+          id="brandings"
+          name="brandings"
+          required
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 bg-black text-white"
+        />
+      </div>
+      
+      <div class="mb-6">
+        <label for="certificate_design_participation" class="block font-semibold mb-2">Participation Certificate Template:</label>
+        <input
+          type="file"
+          id="certificate_design_participation"
+          name="certificate_design_participation"
+          required
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 bg-black text-white"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="certificate_design_winner" class="block font-semibold mb-2">Winner Certificate Template:</label>
+        <input
+          type="file"
+          id="certificate_design_winner"
+          name="certificate_design_winner"
+          required
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 bg-black text-white"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="participants" class="block font-semibold mb-2">Participants:</label>
+        <div id="participants-inputs">
+          <div class="flex items-center">
+            <input
+              type="text"
+              name="participants"
+              required
+              class="flex-1 px-4 py-2 border rounded focus:outline-none focus:border-blue-500 bg-black text-white"
+            />
+            <button
+              type="button"
+              onclick="addInputField('participants')"
+              class="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="winners" class="block font-semibold mb-2">Winners:</label>
+        <div id="winners-inputs">
+          <div class="flex items-center">
+            <input
+              type="text"
+              name="winners"
+              required
+              class="flex-1 px-4 py-2 border rounded focus:outline-none focus:border-blue-500 bg-black text-white"
+            />
+            <button
+              type="button"
+              onclick="addInputField('winners')"
+              class="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+
+    
+    <div class="mb-6">
+      <button
+        type="submit"
+        class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 font-semibold uppercase tracking-wide"
+      >
+        CREATE
+    </button>
+    </div>
+  </form>
+  </div>
+  <script type="text/javascript">
+    $(document).on('submit','#create_event_form',function(e)
+                   {
+      console.log('hello');
+      e.preventDefault();
+      $.ajax({
+        type:'POST',
+        url:'/create_event',
+        data:{
+          event_name:$("#event_name").val(),
+          brandings:$("#brandings").val(),
+          certificate_design_participation:$("#certificate_design_participation").val(),
+          certificate_design_winner:$("#certificate_design_winner").val(),
+          participants:$("#participants").val(),
+          winners:$("#winners").val()
+        },
+        success:function()
+        {
+          alert('saved');
+        }
+      })
+    });
+  </script>
+  <script>
+    function addInputField(fieldName) {
+      const inputContainer = document.querySelector(`#${fieldName}-inputs`);
+
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("mt-2", "flex", "items-center");
+
+      const newInput = document.createElement("input");
+      newInput.type = "text";
+      newInput.name = fieldName;
+      newInput.required = true;
+      newInput.classList.add(
+        "flex-1",
+        "px-4",
+        "py-2",
+        "border",
+        "rounded",
+        "focus:outline-none",
+        "focus:border-blue-500",
+        "bg-black",
+        "text-white"
+      );
+
+      const addButton = document.createElement("button");
+      addButton.type = "button";
+      addButton.textContent = "+";
+      addButton.classList.add(
+        "ml-2",
+        "px-4",
+        "py-2",
+        "bg-blue-500",
+        "text-white",
+        "rounded",
+        "hover:bg-blue-600",
+        "transition",
+        "duration-300"
+      );
+      addButton.onclick = function () {
+        addInputField(fieldName);
+      };
+
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.textContent = "-";
+      deleteButton.classList.add(
+        "ml-2",
+        "px-4",
+        "py-2",
+        "bg-red-500",
+        "text-white",
+        "rounded",
+        "hover:bg-red-600",
+        "transition",
+        "duration-300"
+      );
+      deleteButton.onclick = function () {
+        inputContainer.removeChild(wrapper);
+      };
+
+      wrapper.appendChild(newInput);
+      wrapper.appendChild(addButton);
+      wrapper.appendChild(deleteButton);
+
+      inputContainer.appendChild(wrapper);
+    }
+  </script>
+  {% endblock%}
+</body>
+
