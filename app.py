@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, make_response
-from . import db
+from init import db
 from flask_login import login_required, current_user
-from .models import User, Event
+from models import User, Event
 from werkzeug.utils import secure_filename
 import os
 import cv2
