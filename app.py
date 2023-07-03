@@ -37,18 +37,18 @@ def create_event():
     # Generate secure filenames and save templates
     filename_participation = secure_filename(certificate_design_participation.filename)
     filename_winner = secure_filename(certificate_design_winner.filename)
-    certificate_design_participation.save(os.path.join('CertificateGenerator', filename_participation))
-    certificate_design_winner.save(os.path.join('CertificateGenerator', filename_winner))
+    certificate_design_participation.save(os.path.join('./', filename_participation))
+    certificate_design_winner.save(os.path.join('./', filename_winner))
 
     # Example participant and winner names
     participants = request.form.getlist('participants')
     winners = request.form.getlist('winners')
 
     # Load the participation certificate template
-    certificate_participation = cv2.imread(os.path.join('CertificateGenerator', filename_participation))
+    certificate_participation = cv2.imread(os.path.join('./', filename_participation))
 
     # Load the winner certificate template
-    certificate_winner = cv2.imread(os.path.join('CertificateGenerator', filename_winner))
+    certificate_winner = cv2.imread(os.path.join('./', filename_winner))
 
     # Function to place the name on the certificate at an appropriate location
     def place_name_on_certificate(certificate, name):
