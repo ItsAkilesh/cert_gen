@@ -17,3 +17,4 @@ class Event(db.Model):
     brandings = db.Column(db.String(50))
     participants = db.Column(db.String(200))
     winners = db.Column(db.String(200))
+
